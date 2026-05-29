@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="A modern, responsive To-Do List web application with task management, localStorage persistence, and beautiful glassmorphism UI." />
+  <title>TaskFlow — Modern To-Do App</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Animated background orbs -->
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <!-- ===== Main App Container ===== -->
+  <main class="app-container" role="main">
+
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-top">
+        <div class="logo">
+          <div class="logo-icon" aria-hidden="true">✦</div>
+          <span class="logo-text">TaskFlow</span>
+        </div>
+        <div class="header-date" id="headerDate" aria-label="Today's date"></div>
+      </div>
+
+      <h1 class="app-title">My Tasks</h1>
+
+      <!-- Stats Bar -->
+      <div class="stats-bar" role="status" aria-live="polite">
+        <div class="stat-item">
+          <span class="stat-number" id="totalCount">0</span>
+          <span class="stat-label">Total</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-item">
+          <span class="stat-number" id="activeCount">0</span>
+          <span class="stat-label">Active</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-item">
+          <span class="stat-number" id="completedCount">0</span>
+          <span class="stat-label">Done</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Input Section -->
+    <section class="input-section" aria-label="Add a new task">
+      <div class="input-wrapper">
+        <span class="input-icon" aria-hidden="true">+</span>
+        <input type="text" id="taskInput" class="task-input" placeholder="Add a new task..." maxlength="120"
+          autocomplete="off" aria-label="New task description" />
+        <button id="addTaskBtn" class="add-btn" aria-label="Add task" title="Add task (or press Enter)">
+          Add
+        </button>
+      </div>
+      <!-- Validation message -->
+      <p class="error-msg" id="errorMsg" role="alert" aria-live="assertive"></p>
+    </section>
+
+    <!-- Filter Tabs -->
+    <nav class="filter-bar" aria-label="Filter tasks">
+      <button class="filter-btn active" data-filter="all" id="filterAll">All</button>
+      <button class="filter-btn" data-filter="active" id="filterActive">Active</button>
+      <button class="filter-btn" data-filter="completed" id="filterCompleted">Completed</button>
+      <button class="clear-completed-btn" id="clearCompletedBtn" aria-label="Clear completed tasks">
+        Clear Done
+      </button>
+    </nav>
+
+    <!-- Task List -->
+    <section class="task-section" aria-label="Task list">
+      <ul class="task-list" id="taskList" role="list">
+        <!-- Tasks are injected here by JavaScript -->
+      </ul>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState" aria-hidden="true">
+        <div class="empty-icon" aria-hidden="true">🎯</div>
+        <p class="empty-title">All clear!</p>
+        <p class="empty-subtitle">Add a task above to get started.</p>
+      </div>
+    </section>
+
+    <!-- Progress Bar -->
+    <div class="progress-section" aria-label="Completion progress" role="status">
+      <div class="progress-header">
+        <span class="progress-label">Progress</span>
+        <span class="progress-percent" id="progressPercent">0%</span>
+      </div>
+      <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+        id="progressTrack">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ===== Edit Modal ===== -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle"
+    aria-hidden="true">
+    <div class="modal-card">
+      <h2 class="modal-title" id="modalTitle">Edit Task</h2>
+      <input type="text" id="editInput" class="modal-input" maxlength="120" aria-label="Edit task description" />
+      <p class="error-msg" id="editErrorMsg" role="alert"></p>
+      <div class="modal-actions">
+        <button class="modal-btn cancel-btn" id="cancelEditBtn">Cancel</button>
+        <button class="modal-btn save-btn" id="saveEditBtn">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Toast Notification ===== -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Main Script -->
+  <script src="script.js"></script>
+</body>
+
+</html>
